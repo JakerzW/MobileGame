@@ -28,7 +28,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
-        private Camera m_Camera;
+        public Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
         private Vector2 m_Input;
@@ -55,6 +55,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+            //m_MouseLook.
         }
 
 
@@ -236,8 +237,33 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
+            //int xMax = 10;
+            //int xMin = -25;
+            //int yMax = 30;
+            //int yMin = -30;
+            ////Vector3 currentRotationPlayer = transform.localRotation.eulerAngles;
+            ////Vector3 currentRotationCamera = m_Camera.transform.localRotation.eulerAngles;
+            ////currentRotationPlayer.y = Mathf.Clamp(currentRotationPlayer.y, yMin, yMax);
+            ////currentRotationCamera.x = Mathf.Clamp(currentRotationCamera.x, xMin, xMax);
+            ////transform.localRotation = Quaternion.Euler(currentRotationPlayer);
+            ////m_Camera.transform.localRotation = Quaternion.Euler(currentRotationCamera);
 
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            //Transform newTransformPlayer = transform;
+            //Transform newTransformCamera = m_Camera.transform;
+            //newTransformPlayer.rotation = new Quaternion(Mathf.Clamp(newTransformPlayer.rotation.x, xMin, xMax), 
+            //                                             newTransformPlayer.rotation.y, 
+            //                                             newTransformPlayer.rotation.z, 
+            //                                             newTransformPlayer.rotation.w);
+            //newTransformCamera.localRotation = new Quaternion(m_Camera.transform.localRotation.x, 
+            //                                                  Mathf.Clamp(m_Camera.transform.localRotation.y, yMin, yMax), 
+            //                                                  m_Camera.transform.localRotation.z, 
+            //                                                  m_Camera.transform.localRotation.w);
+
+            ////transform.rotation = new Quaternion(Mathf.Clamp(transform.rotation.x, xMin, xMax), transform.rotation.y, transform.rotation.z, transform.rotation.w);
+            ////m_Camera.transform.rotation = new Quaternion(m_Camera.transform.rotation.x, Mathf.Clamp(m_Camera.transform.rotation.y, yMin, yMax), m_Camera.transform.rotation.z, m_Camera.transform.rotation.w);          
+
+            m_MouseLook.LookRotation(transform, m_Camera.transform);
+            //m_MouseLook.LookRotation(newTransformPlayer, newTransformCamera);
         }
 
 
