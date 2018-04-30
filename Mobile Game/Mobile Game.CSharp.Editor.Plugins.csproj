@@ -121,11 +121,16 @@
       <Project>{6262E4FD-C93D-DCD8-315B-095F23390CBD}</Project>
       <Name>Mobile Game.CSharp.Plugins</Name>
     </ProjectReference>
+    <ProjectReference Include="Mobile Game.CSharp.csproj">
+      <Project>{2B82D529-1378-F806-A126-830089A85750}</Project>
+      <Name>Mobile Game.CSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\BrokenVector\FreeLowPolyPack\readme.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
