@@ -122,10 +122,14 @@
     <Compile Include="Assets\Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
     <Compile Include="Assets\Assets\Standard Assets\Utility\WaypointCircuit.cs" />
     <Compile Include="Assets\Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
+    <Compile Include="Assets\Assets\_Gloomy_Animal\Script\CharacterSelect.cs" />
+    <Compile Include="Assets\Assets\_Gloomy_Animal\Script\MouseOrbitImproved.cs" />
     <Compile Include="Assets\Scripts\MouseAim.cs" />
+    <Compile Include="Assets\scrip.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Assets\BrokenVector\FreeLowPolyPack\readme.txt" />
+    <None Include="Assets\Assets\LowpolyWeaponPack\README.txt" />
     <None Include="Assets\Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
