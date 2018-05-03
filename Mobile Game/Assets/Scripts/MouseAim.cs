@@ -50,14 +50,8 @@ public class MouseAim : MonoBehaviour {
         if (clampHorizontalRotation)
             yTargetRotation = ClampRotationAroundYAxis(yTargetRotation);
 
-        //Quaternion FinalTargetRotation = xTargetRotation * yTargetRotation;
-        //FinalTargetRotation.Set(FinalTargetRotation.x, FinalTargetRotation.y, 0.0f, FinalTargetRotation.w);
-
         if (smooth)
         {
-            //Camera.transform.localRotation = Quaternion.Slerp(Camera.transform.localRotation, FinalTargetRotation, smoothTime * Time.deltaTime);
-
-
             Camera.transform.localRotation = Quaternion.Slerp(Camera.transform.localRotation, xTargetRotation,
                 smoothTime * Time.deltaTime);
             Player.transform.localRotation = Quaternion.Slerp(Player.transform.localRotation, yTargetRotation,
@@ -67,8 +61,6 @@ public class MouseAim : MonoBehaviour {
         {
             Camera.transform.localRotation = xTargetRotation;
             Player.transform.localRotation = yTargetRotation;
-            //character.localRotation = m_CharacterTargetRot;
-            //camera.localRotation = m_CameraTargetRot;
         }
         UpdateCursorLock();
     }
@@ -77,7 +69,7 @@ public class MouseAim : MonoBehaviour {
     {
         lockCursor = value;
         if (!lockCursor)
-        {//we force unlock the cursor if the user disable the cursor locking helper
+        { 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -85,7 +77,6 @@ public class MouseAim : MonoBehaviour {
 
     public void UpdateCursorLock()
     {
-        //if the user set "lockCursor" we check & properly lock the cursos
         if (lockCursor)
             InternalLockUpdate();
     }
