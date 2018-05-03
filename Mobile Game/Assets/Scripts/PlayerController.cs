@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public GameObject BulletPrefab;
+    public GameObject ArrowPrefab;
+    public Transform ArrowSpawn;
     public GameObject Bow;
     public Camera PlayerCamera;
-
-    private Transform ArrowSpawn;
 
     public float AimSpeed;
     public float ArrowSpeed;
@@ -22,15 +21,13 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start()
     {
-        ArrowSpawn.localPosition.Set(1f, 0.1f, 0f);
+    
 	}
 	
 	// Update is called once per frame
 	void Update()
     {
         CheckInputs();
-        if (Input.GetMouseButtonDown(0))
-            Fire();
     }
 
     void CheckInputs()
@@ -52,9 +49,10 @@ public class PlayerController : MonoBehaviour {
     void Fire()
     {
         GameObject Arrow;
-        Arrow = Instantiate(BulletPrefab, ArrowSpawn);
+        //Transform OriginalSpawn = ArrowSpawn;
+        Arrow = Instantiate(ArrowPrefab, ArrowSpawn.position, ArrowSpawn.rotation);
         Arrow.GetComponent<Rigidbody>().velocity = Arrow.transform.forward * ArrowSpeed;
-        Destroy(Arrow, 5f);
+        Destroy(Arrow, 30f);
     }
 
     void DeAim()
