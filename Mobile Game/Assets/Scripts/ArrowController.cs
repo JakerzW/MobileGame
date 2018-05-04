@@ -21,9 +21,9 @@ public class ArrowController : MonoBehaviour {
         Arrow.transform.LookAt(Arrow.transform.position + Rb.velocity);      
 	}
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter(Collision Other)
     {
-        if (col.gameObject.tag == "Grass")
+        if (Other.gameObject.tag == "Grass")
         {
             Rb.velocity = new Vector3(0f, 0f, 0f);
             Rb.Sleep();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public int MaxAI = 8;
-    private int CurrentNumAI;
+    public int CurrentNumAI;
 
     public GameObject Chicken;
     public GameObject Condor;
@@ -67,5 +67,17 @@ public class GameController : MonoBehaviour {
         {
             return Dragon;
         }
+    }
+
+    void OnTriggerExit(Collider Other)
+    {
+        //Debug.Log("Something exited");
+        Other.gameObject.GetComponent<AIController>().TurnAround();
+    }
+
+    public void DecrementAINum()
+    {
+        Debug.Log("Number decremented");
+        CurrentNumAI--;
     }
 }
