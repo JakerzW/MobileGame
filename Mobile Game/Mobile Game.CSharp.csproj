@@ -78,6 +78,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Animals\Script\CharacterSelect.cs" />
+    <Compile Include="Assets\Animals\Script\MouseOrbitImproved.cs" />
     <Compile Include="Assets\Leftover Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\Leftover Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\HeadBob.cs" />
     <Compile Include="Assets\Leftover Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\MouseLook.cs" />
@@ -122,9 +124,9 @@
     <Compile Include="Assets\Leftover Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
     <Compile Include="Assets\Leftover Assets\Standard Assets\Utility\WaypointCircuit.cs" />
     <Compile Include="Assets\Leftover Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
-    <Compile Include="Assets\Leftover Assets\_Gloomy_Animal\Script\CharacterSelect.cs" />
-    <Compile Include="Assets\Leftover Assets\_Gloomy_Animal\Script\MouseOrbitImproved.cs" />
+    <Compile Include="Assets\Scripts\AIController.cs" />
     <Compile Include="Assets\Scripts\ArrowController.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\MouseAim.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>
@@ -135,6 +137,7 @@
     <None Include="Assets\Leftover Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Leftover Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <None Include="Assets\Leftover Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Leftover Assets\VertexColorFarmAnimals\Shaders\VertexColorUnlit.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
