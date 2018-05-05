@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
     private Quaternion yTargetRotation;
     private bool curserIsLocked = true;
     private float NextFire = 0f;
+    private bool IsAiming;
 
 
     public GameObject ArrowPrefab;
@@ -57,16 +58,19 @@ public class PlayerController : MonoBehaviour {
         yTargetRotation = PlayerCamera.transform.localRotation;
 
         GyroEnabled = EnableGyro();
+
+        IsAiming = false;
     }
 	
 	// Update is called once per frame
 	void Update()
     {
-        CheckInputs();
         if (GyroEnabled)
             GyroRotation();
         else
             LookRotation();
+        CheckInputs();      
+        
     }
 
     bool EnableGyro()
@@ -87,22 +91,84 @@ public class PlayerController : MonoBehaviour {
 
     void CheckInputs()
     {
-        //Check which type of input is being used
+        if (Input.touchCount == 1 && Input.GetTouch(0).position.x > Screen.width / 2)
+        {
+            Touch AimTouch = Input.GetTouch(0);
 
-        if (Input.GetMouseButton(1) && Time.time > NextFire)
-            Aim();
-        else if (!Input.GetMouseButton(1))
-            DeAim();
+            if (AimTouch.phase == TouchPhase.Began)
+            {
+                IsAiming = true;
+                Aim();
+            }
+            else if (AimTouch.phase == TouchPhase.Ended)
+            {
+                IsAiming = false;
+                DeAim();
+            }        
+        }
+
+        if (Input.touchCount == 2 && Input.GetTouch(1).position.x < Screen.width / 2 && IsAiming && Time.time > NextFire)
+        {
+            Fire();
+        }
+
+
+
+
+
+
+
+        //Check which type of input is being used
+        /*if (Input.touchCount > 0)
+        {
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                if (Input.GetTouch(i).position.x > Screen.width / 2 && !IsAiming)
+                {
+                    Aim();
+                    IsAiming = true;
+                    break;
+                }
+                else if (Input.GetTouch(i).position.x > Screen.width / 2 && IsAiming)
+                {
+                    DeAim();
+                    IsAiming = false;
+                    break;
+                }
+                if (Input.GetTouch(i).position.x < Screen.width / 2 && IsAiming)
+                {
+                    Fire();
+                    break;
+                }
+            }
+        }*/
+
+
+        //if (Input.GetMouseButton(1) && Time.time > NextFire)
+        //    Aim();
+        //else if (!Input.GetMouseButton(1))
+        //    DeAim();
     }
 
     void Aim()
     {
-        Bow.transform.localPosition = Vector3.Slerp(Bow.transform.localPosition, BowAimedPoint, AimSpeed * Time.deltaTime);
+        //Bow.transform.localPosition = Vector3.Slerp(Bow.transform.localPosition, BowAimedPoint, AimSpeed * Time.deltaTime);
+        Bow.transform.localPosition = BowAimedPoint;
         PlayerCamera.fieldOfView = 45f;
-        if (Input.GetMouseButtonDown(0))
-        {
-            Fire();
-        }
+        GyroRotSpeed = 1f;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Fire();
+        //}
+
+        //for (int i = 0; i < Input.touchCount; i++)
+        //{
+        //    if (Input.GetTouch(i).position.x < Screen.width / 2)
+        //    {
+        //        Fire();
+        //        break;
+        //    }
+        //}
     }
 
     void Fire()
@@ -116,8 +182,10 @@ public class PlayerController : MonoBehaviour {
 
     void DeAim()
     {
-        Bow.transform.localPosition = Vector3.Slerp(Bow.transform.localPosition, BowHipPoint, AimSpeed * Time.deltaTime);
+        //Bow.transform.localPosition = Vector3.Slerp(Bow.transform.localPosition, BowHipPoint, AimSpeed * Time.deltaTime);
+        Bow.transform.localPosition = BowHipPoint;
         PlayerCamera.fieldOfView = 60f;
+        GyroRotSpeed = 3f;
     }
 
     public void GyroRotation()
