@@ -124,6 +124,7 @@
     <Compile Include="Assets\Leftover Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
     <Compile Include="Assets\Leftover Assets\Standard Assets\Utility\WaypointCircuit.cs" />
     <Compile Include="Assets\Leftover Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
+    <Compile Include="Assets\ScoreController.cs" />
     <Compile Include="Assets\Scripts\AIController.cs" />
     <Compile Include="Assets\Scripts\ArrowController.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />

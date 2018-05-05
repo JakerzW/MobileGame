@@ -25,8 +25,14 @@ public class ArrowController : MonoBehaviour {
     {
         if (Other.gameObject.tag == "Grass")
         {
+            Debug.Log("Hit grass");
             Rb.velocity = new Vector3(0f, 0f, 0f);
             Rb.Sleep();
+        }
+        if (Other.gameObject.tag == "Animal")
+        {
+            Debug.Log("Hit animal");
+            Destroy(Arrow, 0.01f);
         }
     }
 }

@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour {
 
     void CheckInputs()
     {
+        //Check which type of input is being used
+
         if (Input.GetMouseButton(1) && Time.time > NextFire)
             Aim();
         else if (!Input.GetMouseButton(1))

@@ -5,10 +5,13 @@ using UnityEngine;
 public class AIController : MonoBehaviour {
 
     public GameObject Animal;
-    public GameObject GameControl;
+    public GameController GameControl;
+    public Rigidbody Rb;
     public float Speed;
     public float RotationSpeed;
+    public int Score;
 
+    public AnimalType AnimalName;
     private float Direction;
     private Vector3 TargetRotation;
     private Vector3 RotationAmount = new Vector3(0f, 90f, 0f);
@@ -16,22 +19,34 @@ public class AIController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        //Direction = Animal.transform.rotation.y;
-        //TargetRotation = new Vector3(0f, Direction, 0f);
+        //Animal.GetComponent<AIController>();
+        GameControl = FindObjectOfType<GameController>();
+        Rb = FindObjectOfType<Rigidbody>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Animal.transform.eulerAngles = Vector3.Slerp(Animal.transform.eulerAngles, TargetRotation, Time.deltaTime * RotationSpeed);
-        //Animal.transform.rotation.SetFromToRotation(Animal.transform.forward, TargetRotation);
-        Animal.GetComponent<Rigidbody>().velocity = Animal.transform.forward * Speed;
-	}
+        Rb.velocity = Animal.transform.forward * Speed;
+    }
 
     void OnCollisionEnter(Collision Other)
     {
-        Debug.Log("Collision occured");
-        KillAnimal();        
+        if (Other.gameObject.tag == "Arrow")
+        {
+            //Debug.Log("Arrow detected on animal");
+            KillAnimal();
+            GameControl.IncreaseScore(Score);          
+        }            
+        else if (Other.gameObject.tag == "Grass")
+        {
+            //Debug.Log("Collision occured");
+            KillAnimal();
+        }
+        else if (Other.gameObject.tag == "Animal")
+        {
+            TurnAround();
+        }              
     }
      
     public void TurnAround()
@@ -44,8 +59,13 @@ public class AIController : MonoBehaviour {
 
     void KillAnimal()
     {
-        Animal.GetComponent<Rigidbody>().velocity = Animal.transform.forward * 0;
-        Animal.GetComponent<Rigidbody>().useGravity = true;
-        Destroy(Animal, 3f);
+        Destroy(Animal, 1f);
+        
+        GameControl.DecrementAINum();
+    }
+
+    public void SetAnimalType(AnimalType TypeChosen)
+    {
+        AnimalName = TypeChosen;
     }
 }
