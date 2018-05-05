@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum AnimalType { Chicken, Condor, Dragon };
 
@@ -8,7 +10,6 @@ public class GameController : MonoBehaviour {
 
     public int MaxAI = 8;
     public int CurrentNumAI;
-
     
     public GameObject Chicken;
     public GameObject Condor;
@@ -24,6 +25,15 @@ public class GameController : MonoBehaviour {
 
     public ScoreController Score;
     public int CurrentScore;
+    public int AverageFPS;
+    public Text FPSText;
+    public bool ShowFPS = true;
+
+    public float Timer = 120f;
+    public Text TimerText;
+
+    private bool GameActive;
+    private AssetBundle Scenes;
 
     // Use this for initialization
     void Start ()
@@ -31,13 +41,58 @@ public class GameController : MonoBehaviour {
         CurrentScore = 0;
         CurrentNumAI = 0;
         Score.GetComponent<ScoreController>();
+        Scenes = AssetBundle.LoadFromFile("Assets/Scenes");
+        GameActive = true;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
         CheckAI();
+        UpdateFPS();
+        UpdateTimer();
+        CheckGameState();
 	}
+
+    void UpdateFPS()
+    {
+        if (ShowFPS)
+        {
+            FPSText.enabled = true;
+            float Current = 0;
+            Current = Time.frameCount / Time.time;
+            AverageFPS = (int)Current;
+            FPSText.text = "FPS: " + AverageFPS.ToString();
+        }
+        else
+            FPSText.enabled = false;
+    }
+
+    void UpdateTimer()
+    {
+        Timer -= Time.deltaTime;
+
+        int Mins = Mathf.FloorToInt(Timer / 60f);
+        int Seconds = Mathf.RoundToInt(Timer % 60f);
+
+        if (Seconds == 60)
+        {
+            Seconds = 0;
+            Mins++;
+        }
+
+        TimerText.text = Mins.ToString("00") + ":" + Seconds.ToString("00");
+    }
+
+    void CheckGameState()
+    {
+        if (Timer < 0f)
+        {
+            GameActive = false;
+            SceneManager.LoadScene("Title Screen");
+        }
+        //Show highscore and return to menu
+    }
 
     void CheckAI()
     {

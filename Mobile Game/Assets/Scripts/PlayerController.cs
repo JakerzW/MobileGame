@@ -110,38 +110,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.touchCount == 2 && Input.GetTouch(1).position.x < Screen.width / 2 && IsAiming && Time.time > NextFire)
         {
             Fire();
-        }
-
-
-
-
-
-
-
-        //Check which type of input is being used
-        /*if (Input.touchCount > 0)
-        {
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                if (Input.GetTouch(i).position.x > Screen.width / 2 && !IsAiming)
-                {
-                    Aim();
-                    IsAiming = true;
-                    break;
-                }
-                else if (Input.GetTouch(i).position.x > Screen.width / 2 && IsAiming)
-                {
-                    DeAim();
-                    IsAiming = false;
-                    break;
-                }
-                if (Input.GetTouch(i).position.x < Screen.width / 2 && IsAiming)
-                {
-                    Fire();
-                    break;
-                }
-            }
-        }*/
+        }    
 
 
         //if (Input.GetMouseButton(1) && Time.time > NextFire)
@@ -159,15 +128,6 @@ public class PlayerController : MonoBehaviour {
         //if (Input.GetMouseButtonDown(0))
         //{
         //    Fire();
-        //}
-
-        //for (int i = 0; i < Input.touchCount; i++)
-        //{
-        //    if (Input.GetTouch(i).position.x < Screen.width / 2)
-        //    {
-        //        Fire();
-        //        break;
-        //    }
         //}
     }
 
