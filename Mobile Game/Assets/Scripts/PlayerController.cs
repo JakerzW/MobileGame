@@ -8,6 +8,13 @@ public class PlayerController : MonoBehaviour {
     public Camera PlayerCamera;
     public GameObject Player;
 
+    private bool GyroEnabled;
+    private Gyroscope Gyro;
+    private Quaternion GyroRotForward;
+    private Quaternion TargetGyroRot;
+    public float GyroRotSpeed = 5f;
+    public Vector3 PlayerSpawn;
+
     public float XSensitivity = 2f;
     public float YSensitivity = 2f;
     public float MinimumX = -25f;
@@ -18,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     public float FireRate = 3f;
     public bool clampVerticalRotation = true;
     public bool clampHorizontalRotation = true;
+    public bool ClampRotation = true;
     public bool lockCursor = true;
     public bool smooth = true;
 
@@ -47,13 +55,34 @@ public class PlayerController : MonoBehaviour {
     {
         xTargetRotation = PlayerCamera.transform.localRotation;
         yTargetRotation = PlayerCamera.transform.localRotation;
+
+        GyroEnabled = EnableGyro();
     }
 	
 	// Update is called once per frame
 	void Update()
     {
         CheckInputs();
-        LookRotation();
+        if (GyroEnabled)
+            GyroRotation();
+        else
+            LookRotation();
+    }
+
+    bool EnableGyro()
+    {
+        if (SystemInfo.supportsGyroscope)
+        {
+            Gyro = Input.gyro;
+            Gyro.enabled = true;
+
+            Player.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+            Player.transform.position = PlayerSpawn;
+            GyroRotForward = new Quaternion(0, 0, 1, 0);
+
+            return true;
+        }
+        return false;
     }
 
     void CheckInputs()
@@ -89,6 +118,23 @@ public class PlayerController : MonoBehaviour {
     {
         Bow.transform.localPosition = Vector3.Slerp(Bow.transform.localPosition, BowHipPoint, AimSpeed * Time.deltaTime);
         PlayerCamera.fieldOfView = 60f;
+    }
+
+    public void GyroRotation()
+    {
+        //Get current rotation
+        //Set target rotation to be added on from current rotation
+        //Clamp target rotation
+
+        //Quaternion CurrentGyroRot = Gyro.attitude;
+
+        //TargetGyroRot *= CurrentGyroRot;
+
+        //if (ClampRotation)
+        //    TargetGyroRot = ClampRotationAroundBothAxis(TargetGyroRot);
+
+        PlayerCamera.transform.localRotation = Quaternion.Slerp(PlayerCamera.transform.localRotation, Gyro.attitude * GyroRotForward, GyroRotSpeed * Time.deltaTime);//Gyro.attitude * GyroRot;
+        //PlayerCamera.transform.localRotation = Quaternion.Slerp(PlayerCamera.transform.localRotation, TargetGyroRot, GyroRotSpeed * Time.deltaTime);
     }
 
     public void LookRotation()
@@ -185,6 +231,28 @@ public class PlayerController : MonoBehaviour {
         angleY = Mathf.Clamp(angleY, MinimumY, MaximumY);
 
         q.y = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleY);
+
+        return q;
+    }
+
+    Quaternion ClampRotationAroundBothAxis(Quaternion q)
+    {
+        q.x /= q.w;
+        q.y /= q.w;
+        q.z /= q.w;
+        q.w = 1.0f;
+
+        float angleY = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.y);
+
+        angleY = Mathf.Clamp(angleY, MinimumY, MaximumY);
+
+        q.y = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleY);
+
+        float angleX = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.x);
+
+        angleX = Mathf.Clamp(angleX, MinimumX, MaximumX);
+
+        q.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleX);
 
         return q;
     }
