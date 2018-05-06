@@ -10,12 +10,16 @@ public class HighscoreController : MonoBehaviour {
     private int CurrentScore;
     public Text HighscoreText;
     public Text CurrentScoreText;
+    public Button ExitButton;
+    private float CanPressButtonTime = 3f;
 
     private AssetBundle Scenes;
 
     // Use this for initialization
     void Start ()
     {
+        CanPressButtonTime += Time.time;
+        ExitButton.interactable = false;
         CurrentScore = PlayerPrefs.GetInt("CurrentScore");
 
         if (!PlayerPrefs.HasKey("Highscore"))
@@ -54,7 +58,11 @@ public class HighscoreController : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
-        
+	void Update ()
+    {
+        if (Time.time > CanPressButtonTime)
+        {
+            ExitButton.interactable = true;
+        }
     }
 }
