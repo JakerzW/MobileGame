@@ -89,7 +89,8 @@ public class GameController : MonoBehaviour {
         if (Timer < 0f)
         {
             GameActive = false;
-            SceneManager.LoadScene("Title Screen");
+            Debug.Log("Loading Highscore Screen...");
+            SceneManager.LoadScene("Highscore Screen");
         }
         //Show highscore and return to menu
     }

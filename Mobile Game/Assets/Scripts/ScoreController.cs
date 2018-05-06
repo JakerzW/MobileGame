@@ -10,18 +10,21 @@ public class ScoreController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start ()
-    {
+    {        
         CurrentScore = 0;
+        PlayerPrefs.SetInt("CurrentScore", 0);
 	}
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        Score.text = CurrentScore.ToString();
-	}
+    {        
+        Score.text = CurrentScore.ToString();        
+    }
 
     public void ChangeScore(int NewScore)
     {
         CurrentScore = NewScore;
+        PlayerPrefs.SetInt("CurrentScore", CurrentScore);
+        Debug.Log(PlayerPrefs.GetInt("CurrentScore").ToString());
     }
 }

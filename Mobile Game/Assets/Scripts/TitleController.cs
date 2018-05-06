@@ -21,7 +21,7 @@ public class TitleController : MonoBehaviour {
 
     public void PlayGame()
     {
-        Debug.Log("Loading Scene...");
+        Debug.Log("Loading Main Scene...");
         SceneManager.LoadScene("Main Scene");
     }
 }
